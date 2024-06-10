@@ -19,7 +19,7 @@ limitations under the License.
 
     mvn package exec:exec -DHelloWorldWrite -Dbigtable.projectID=<projectID> -Dbigtable.instanceID=<instanceID> -Dbigtable.region=<region> -Dgs=<Your bucket>
 
-    mvn package exec:exec -DSourceRowCount -Dbigtable.projectID=<projectID> -Dbigtable.instanceID=<instanceID> -Dgs=<Your bucket>
+    mvn package exec:exec -DSourceRowCount -Dbigtable.projectID=<projectID> -Dbigtable.instanceID=<instanceID> -Dbigtable.table=<tableID> -Dgs=<Your bucket>
 
     mvn package exec:exec -DPubsubWordCount -Dbigtable.projectID=<projectID> -Dbigtable.instanceID=<instanceID> -Dgs=<Your bucket> -DpubsubTopic=projects/ProjectID/topics/TopicID
 
@@ -46,8 +46,8 @@ limitations under the License.
   -->
 
   <properties>
-    <beam.version>2.38.0</beam.version>
-    <bigtable.version>2.3.0</bigtable.version>
+    <beam.version>2.56.0</beam.version>
+    <bigtable.version>2.14.2</bigtable.version>
     <slf4j.version>1.7.36</slf4j.version>
     <region>us-central1</region>
     <network>default</network>

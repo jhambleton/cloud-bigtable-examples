@@ -87,6 +87,35 @@ There should be a file that looks like count-XXXXXX-of-YYYYYY.  Type:
     gsutil cp gs://my_bucket/count-XXXXXX-of-YYYYYY .
     cat count-XXXXXX-of-YYYYYY
 
+(Optional) For advanced configuration for SourceRowCount, additional properties may be set as the following which may be helpful for scale.
+
+    PROJECT_ID=<project-id>
+    INSTANCE_ID=<instance-id>
+    TABLE_NAME=<table-id>
+    REGION=<region>
+    WORKER_MACHINE_TYPE=<worker-machine-type>
+    NUM_WORKERS=<num-dataflow-workers>
+    OUTPUT_GS_PATH=<gs-path>
+    # example: OUTPUT_GS_PATH=gs://bucket/output-bench-perf-count
+    
+    mvn -Pdataflow-runner compile exec:java \
+      -Dexec.mainClass=com.google.cloud.bigtable.dataflow.example.SourceRowCount \
+      -Dexec.args=" \
+      --runner=DataflowRunner \
+      --project=$PROJECT_ID \
+      --bigtableProjectId=$PROJECT_ID \
+      --bigtableInstanceId=$INSTANCE_ID \
+      --bigtableTableId=$TABLE_NAME \
+      --stagingLocation=${OUTPUT_GS_PATH}/staging \
+      --resultLocation=${OUTPUT_GS_PATH}/count \
+      --numWorkers=${NUM_WORKERS} \
+      --maxNumWorkers=${NUM_WORKERS} \
+      --workerMachineType=${WORKER_MACHINE_TYPE} \
+      --diskSizeGb=100 \
+      --region=$REGION \
+      --usePublicIps=false"
+
+
 # CsvImport - Reading data from GCS and then Writing Data
 Use the Hbase shell to add a column family to your table called 'csv' for this example
 
